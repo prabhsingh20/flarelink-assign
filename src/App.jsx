@@ -15,8 +15,10 @@ const App = () => {
     setSearchTerm(e.target.value.toLowerCase());
   };
 
-  const filteredTasks = tasks.filter((task) =>
-    task.title.toLowerCase().includes(searchTerm),
+  const filteredTasks = tasks.filter(
+    (task) =>
+      task.title.toLowerCase().includes(searchTerm) ||
+      task.description.toLowerCase().includes(searchTerm),
   );
 
   useEffect(() => {
@@ -27,8 +29,11 @@ const App = () => {
     setTasks(tasks.filter((task) => task.id !== id));
   };
 
-  const addTask = (title, priority) => {
-    setTasks([...tasks, { id: Date.now(), title, completed: false, priority }]);
+  const addTask = (title, description, priority) => {
+    setTasks([
+      ...tasks,
+      { id: Date.now(), title, description, completed: false, priority },
+    ]);
   };
 
   const toggleTaskCompletion = (id) => {
@@ -54,25 +59,18 @@ const App = () => {
   return (
     <div className="flex flex-col h-screen font-Quicksand">
       <Header searchTerm={searchTerm} handleSearch={handleSearch} />
-      <main>
+      <main className="flex flex-grow flex-col">
         <TaskInput onAddTask={addTask} />
-        <div>
+        <div className="flex-grow overflow-y-auto bg-3">
           {sortedTasks.map((task) => (
             <TaskItem
               key={task.id}
               task={task}
               onDelete={deleteTask}
               onToggleComplete={toggleTaskCompletion}
+              setSortCriteria={setSortCriteria}
             />
           ))}
-        </div>
-        <div>
-          <select onChange={(e) => setSortCriteria(e.target.value)}>
-            <option value="">Sort by</option>
-            <option value="priority">Priority</option>
-            <option value="title">Title</option>
-            <option value="completed">Completion</option>
-          </select>
         </div>
       </main>
     </div>

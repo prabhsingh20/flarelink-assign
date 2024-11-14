@@ -6,6 +6,7 @@ export default {
       colors: {
         1: "#f4a226",
         2: "#e5771f",
+        3: "#5a3e2b",
       },
       fontFamily: {
         Monoton: ["Monoton", " sans-serif"],

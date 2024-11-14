@@ -2,13 +2,14 @@ import { useState } from "react";
 
 const TaskInput = ({ onAddTask }) => {
   const [title, setTitle] = useState("");
-  const [task, setTask] = useState("");
-  const [priority, setPriority] = useState("Medium");
+  const [description, setDescription] = useState("");
+  const [priority, setPriority] = useState("Low");
 
   const handleAddTask = () => {
-    if (title.trim()) {
-      onAddTask(title, priority);
+    if (title.trim() && description.trim()) {
+      onAddTask(title, description, priority);
       setTitle("");
+      setDescription("");
     }
   };
 
@@ -24,9 +25,9 @@ const TaskInput = ({ onAddTask }) => {
         />
         <input
           type="text"
-          placeholder="Enter task"
-          value={task}
-          onChange={(e) => setTask(e.target.value)}
+          placeholder="Enter task description"
+          value={description}
+          onChange={(e) => setDescription(e.target.value)}
           className="input w-52"
         />
         <select
