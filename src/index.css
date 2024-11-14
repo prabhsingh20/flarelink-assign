@@ -1,0 +1,11 @@
+@import url("https://fonts.googleapis.com/css2?family=Monoton&family=Quicksand:wght@300..700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .input {
+    @apply rounded-full bg-yellow-100 px-4 py-2 text-sm placeholder:text-stone-500 focus:outline-none focus:ring focus:ring-yellow-500 focus:ring-opacity-50;
+  }
+}

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import TaskInput from "./components/TaskInput";
 import TaskItem from "./components/TaskItem";
+import Header from "./components/Header";
 
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -15,7 +16,7 @@ const App = () => {
   };
 
   const filteredTasks = tasks.filter((task) =>
-    task.title.toLowerCase().includes(searchTerm)
+    task.title.toLowerCase().includes(searchTerm),
   );
 
   useEffect(() => {
@@ -33,8 +34,8 @@ const App = () => {
   const toggleTaskCompletion = (id) => {
     setTasks(
       tasks.map((task) =>
-        task.id === id ? { ...task, completed: !task.completed } : task
-      )
+        task.id === id ? { ...task, completed: !task.completed } : task,
+      ),
     );
   };
 
@@ -51,32 +52,29 @@ const App = () => {
   });
 
   return (
-    <div>
-      <input
-        type="text"
-        placeholder="Search tasks"
-        value={searchTerm}
-        onChange={handleSearch}
-      />
-      <TaskInput onAddTask={addTask} />
-      <div>
-        {sortedTasks.map((task) => (
-          <TaskItem
-            key={task.id}
-            task={task}
-            onDelete={deleteTask}
-            onToggleComplete={toggleTaskCompletion}
-          />
-        ))}
-      </div>
-      <div>
-        <select onChange={(e) => setSortCriteria(e.target.value)}>
-          <option value="">Sort by</option>
-          <option value="priority">Priority</option>
-          <option value="title">Title</option>
-          <option value="completed">Completion</option>
-        </select>
-      </div>
+    <div className="flex flex-col h-screen font-Quicksand">
+      <Header searchTerm={searchTerm} handleSearch={handleSearch} />
+      <main>
+        <TaskInput onAddTask={addTask} />
+        <div>
+          {sortedTasks.map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              onDelete={deleteTask}
+              onToggleComplete={toggleTaskCompletion}
+            />
+          ))}
+        </div>
+        <div>
+          <select onChange={(e) => setSortCriteria(e.target.value)}>
+            <option value="">Sort by</option>
+            <option value="priority">Priority</option>
+            <option value="title">Title</option>
+            <option value="completed">Completion</option>
+          </select>
+        </div>
+      </main>
     </div>
   );
 };
