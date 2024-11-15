@@ -2,36 +2,43 @@ const TaskItem = ({ task, onDelete, onToggleComplete, setSortCriteria }) => {
   const getBackgroundColor = (priority) => {
     switch (priority) {
       case "High":
-        return "bg-red-300";
+        return "bg-red-400";
       case "Medium":
         return "bg-yellow-300";
       case "Low":
         return "bg-green-300";
       default:
-        return "bg-green-100";
+        return "bg-green-300";
     }
   };
 
   return (
-    <div className="bg-red-800 ">
+    <div>
       <div
-        className={`flex items-center justify-between p-4 border-b ${getBackgroundColor(task.priority)}`}
-        style={{ textDecoration: task.completed ? "line-through" : "none" }}
+        className={`flex items-center justify-between border-b px-4 py-2 ${getBackgroundColor(task.priority)}`}
       >
-        <div>
+        <div className="flex items-start">
           <input
             type="checkbox"
             checked={task.completed}
             onChange={() => onToggleComplete(task.id)}
-            className="mr-2"
+            className="mr-2 mt-[0.5rem]"
           />
-          <span>
-            <strong>{task.title}</strong>: {task.description}
-          </span>
+          <div className="flex flex-col">
+            <span
+              className="text-lg"
+              style={{
+                textDecoration: task.completed ? "line-through" : "none",
+              }}
+            >
+              <strong>{task.title}</strong>:
+            </span>
+            <span>{task.description}</span>
+          </div>
         </div>
         <button
           onClick={() => onDelete(task.id)}
-          className="bg-red-500 text-white py-1 px-3 ml-4 rounded-full"
+          className="ml-4 rounded-full bg-red-500 px-3 py-1 text-white"
         >
           Delete
         </button>
@@ -40,7 +47,7 @@ const TaskItem = ({ task, onDelete, onToggleComplete, setSortCriteria }) => {
       <div>
         <select
           onChange={(e) => setSortCriteria(e.target.value)}
-          className="absolute bottom-8 left-[42%] input"
+          className="input fixed bottom-8 left-[42%]"
         >
           <option value="">Sort by</option>
           <option value="priority">Priority</option>

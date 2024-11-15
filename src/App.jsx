@@ -57,20 +57,26 @@ const App = () => {
   });
 
   return (
-    <div className="flex flex-col h-screen font-Quicksand">
+    <div className="flex h-screen flex-col font-Quicksand">
       <Header searchTerm={searchTerm} handleSearch={handleSearch} />
       <main className="flex flex-grow flex-col">
         <TaskInput onAddTask={addTask} />
         <div className="flex-grow overflow-y-auto bg-3">
-          {sortedTasks.map((task) => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              onDelete={deleteTask}
-              onToggleComplete={toggleTaskCompletion}
-              setSortCriteria={setSortCriteria}
-            />
-          ))}
+          {sortedTasks.length > 0 ? (
+            sortedTasks.map((task) => (
+              <TaskItem
+                key={task.id}
+                task={task}
+                onDelete={deleteTask}
+                onToggleComplete={toggleTaskCompletion}
+                setSortCriteria={setSortCriteria}
+              />
+            ))
+          ) : (
+            <div className="mt-56 text-center text-2xl font-medium text-white">
+              Start adding your first task📝
+            </div>
+          )}
         </div>
       </main>
     </div>
